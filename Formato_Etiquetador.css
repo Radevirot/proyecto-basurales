@@ -1,0 +1,370 @@
+/*Import Principio*/
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:ital,wght@1,100&family=Nabla&display=swap');
+
+/*Import Final*/
+
+/*Cuerpo Principio*/
+
+body{
+    background-image: url(img/UNLEdificio.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+header{
+    background-color: #354954;
+    width: 100.95%;
+    height: 100px;
+    text-align: center;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 0px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+main{
+    background-color: #D7C0D3;
+    float:left;
+    border-radius: 25px;
+}
+
+aside{
+    background-color: #A08A9C;
+    width: 300px;
+    height: 450px;
+    border-style: dotted;
+    border-width: 3px;
+    border-radius: 30px;
+    border-color: #D7C0D3;
+    margin-right: 10px;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+footer{
+    background-color: #82B2CA;
+    position: relative;
+    float: none;
+    right: 10px;
+    width: 100.95%;
+    height: 100px;
+    text-align: left;
+}
+
+
+
+#footerMain{
+    top: 1450px;
+}
+
+#Banderas{
+    width: 5%;
+    height: 5%;
+}
+
+/*Cuerpo Final*/
+
+/*Elementos Principio*/
+
+input{
+    height: 20px;
+    width: 20px;
+}
+
+label{
+    display: block;
+    margin-bottom: 8px;
+}
+
+textarea{
+    position: relative;
+    right: 4px;
+    width: 100%;
+    height: 100px;
+    border-style: groove;
+    border-width: 2px;
+    border-color: #122f51;
+    resize: none;
+}
+
+button{
+    background-color: #A08A9C;
+    width: 100%;
+    border-radius: 5px;
+    color: white;
+    border-color: #f3d7c2;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    outline: none;
+    text-decoration: none;
+}
+
+a:visited{
+    color: black;
+}
+
+a:link{
+    color: black;
+}
+
+/*Elementos Final*/
+
+/*Header Principio*/
+
+.head1{
+    position: left;
+    top: 50%;
+    background-color: #354954;
+    transform: translateY(-50%);
+}
+
+.head2{
+    position: relative;
+    top: 50%;
+    background-color: #354954;
+    transform: translateY(-50%);
+}
+
+.head3{
+    position: right;
+    top: 50%;
+    background-color: #354954;
+    transform: translateY(-50%);
+}
+
+#Contacto{
+    position: relative;
+    top: 33px;
+    width: 2%;
+    height: 2%;
+    float: right;
+    margin-right: 50px;
+}
+
+#Contacto:hover{
+    box-shadow: 0 0 20px black;
+    width: 40px;
+}
+
+#Logo{
+    position: relative;
+    top: 10px;
+    right: 300px;
+    width: 6%;
+    height: 6%;
+}
+
+#BuscarGatos{
+    position: relative;
+    bottom: 5px;
+    right: 100px;
+}
+
+#Bienvenido{
+    position: relative;
+    right: 200px;
+    font-family: 'Nabla', cursive;
+    font-size: 20px;
+}
+
+#Espacio{
+    position: relative;
+    bottom: 10px;
+    right: 40px;
+    font-family: 'Nabla', cursive;
+    font-size: 28px;
+}
+
+/*Header Final*/
+
+/*Aside Principio*/
+
+#BRaza{
+    margin-left: 30px;
+    font-style: oblique;
+    font-size: 22px;
+    font-stretch: ultra-condensed;
+    color: #D7C0D3;
+}
+
+#Razas{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+}
+
+/*Aside Final*/
+
+/*Main Principio*/
+
+.BoxMichi{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.BoxEnviar{
+    width: 200px; 
+}
+
+.Box{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    border-width: 5px;
+}
+
+.BoxArticulo{
+    margin-left: 20px;
+    width: 1250px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#MichiSize{
+    width: 400px; 
+    height: 400px;
+    object-fit: cover;
+    border-style: groove;
+    border-color: #A08A9C;
+    border-width: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;  
+}
+
+
+
+#NombreGato{
+    font-family: 'Black Ops One', cursive;
+}
+
+#Numeros{
+    position: relative;
+    bottom: 5px;
+}
+
+#ImagenInformacion{
+    float: right;
+    position: relative;
+    top: 20px;
+    width: 30%;
+    height: 30%;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    border-color: #A08A9C;
+}
+
+/*Main Final*/
+
+/*Footer Principio*/
+
+.BoxFoot{
+    position: relative;
+    right: 730px;
+    top: 30px;
+    font-size: 24px;
+}
+
+#LogosSeguinos{
+    height: 2%;
+    width: 2%;
+}
+
+#Seguinos{
+    position: relative;
+    bottom: 10px;
+    color: #122f51;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 24px;
+}
+
+/*Footer Final*/
+
+/*-----Contacto-----*/
+
+/*Header Principio*/
+
+#TituloCont{
+    color:#82B2CA;
+    font-family: 'Black Ops One', cursive;
+    font-size: 40px;
+}
+
+/*Header Final*/
+
+/*Main Principio*/
+
+/*Formulario Principio*/
+
+.Formulario{
+    background-color: #D7C0D3;
+    width: 500px;
+    margin: 60px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 3px;
+    border-style: dashed;
+    border-color: #354954;
+}
+
+.TituloLabel{
+    position: relative;
+    left: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+}
+
+.InputContacto{
+    position: relative;
+    left: 20px;
+    width: 90%;
+    height: 50%;
+}
+
+#TituloFormulario{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    text-align: center;
+}
+
+/*Formulario Final*/
+
+#VideoGatos{
+    position: relative;
+    left: 20%;
+    border-style: double;
+    border-color:  #8bb6a3;
+    border-width: 5px;
+    border-radius: 20px;
+}
+
+/*Main Final*/
+
+/*Footer Principio*/
+
+#footerContacto{
+    top: 150px;
+}
+
+#SeguinosCont{
+    position: relative;
+    top: 30px;
+    text-align: center;
+}
+
+/*Footer Final*/
+
