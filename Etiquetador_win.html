@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Formato_Etiquetador.css">
-    <link rel="icon" href="https://svgsilh.com/svg/2798804.svg">
-    <title>----</title>
+    <link rel="icon" href="img/IconoWebTini.png">
+    <title>Proyecto Basurales - Etiquetador</title>
 </head>
 
 <body>
 
     <header>
-        <div class="1">
-
+        <div class="head1">
+            asdasdas
         </div>
         <div class="head2">
             <tr>
@@ -36,18 +36,23 @@
     </header>
 
     <aside>
-        <p id="BRaza">----</p>
-        <ul id="Razas">
+        <p id="Letra">----</p>
+        <ul id="Fuentes">
             <input type="radio" name="Radio1" value=""></input> Si
         </ul>
-        <ul id="Razas">
+        <ul id="Fuentes">
             <input type="radio" name="Radio1" value=""></input> Tal vez
         </ul>
-        <ul id="Razas">
+        <ul id="Fuentes">
             <input type="radio" name="Radio1" value=""></input> No
         </ul>
-        <ul id="Razas">
+        <ul id="Fuentes">
             <input type="checkbox" name="Check" value=""></input> Ciclico
+        </ul>
+        <ul>
+            <button id="toggleZoom" class="BoxEnviar">
+                Activar Lupa
+            </button>
         </ul>
         <ul>
             <button class="BoxEnviar">
@@ -60,31 +65,97 @@
             <div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_0.png" alt="Abisinio" id="MichiSize">
+                        <img src="img/cordoba9_0.png" alt="Abisinio" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="MichiSize">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
+                    </button>
+                </div>
+                <!--div class="Box">
+                    <button>
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
+                    </button>
+                </div-->
+            </div>
+            <div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_2.png" alt="American shorthair" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
+                    </button>
+                </div>
+                <!--div class="Box">
+                    <button>
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
+                    </button>
+                </div-->
+            </div>
+            <!--div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_0.png" alt="Abisinio" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
             </div>
             <div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_2.png" alt="American shorthair" id="MichiSize">
+                        <img src="img/cordoba9_2.png" alt="American shorthair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="MichiSize">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
-            </div>
-            <div>
-            </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
+                    </button>
+                </div>
+                <div class="Box">
+                    <button>
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
+                    </button>
+                </div>
+            </div-->
     </main>
-    
+    <div id="zoomModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="zoomedImage">
+    </div>
+    <script src="Funcion.js"></script>
 </body>
 
 </html>
