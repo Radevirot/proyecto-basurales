@@ -50,6 +50,11 @@
             <input type="checkbox" name="Check" value=""></input> Ciclico
         </ul>
         <ul>
+            <button id="toggleZoom" class="BoxEnviar">
+                Activar Lupa
+            </button>
+        </ul>
+        <ul>
             <button class="BoxEnviar">
                 Enviar
             </button>
@@ -60,92 +65,96 @@
             <div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_0.png" alt="Abisinio" id="SizeBox">
+                        <img src="img/cordoba9_0.png" alt="Abisinio" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
                 <!--div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div-->
             </div>
             <div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_2.png" alt="American shorthair" id="SizeBox">
+                        <img src="img/cordoba9_2.png" alt="American shorthair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
                 <!--div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div-->
             </div>
             <!--div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_0.png" alt="Abisinio" id="SizeBox">
+                        <img src="img/cordoba9_0.png" alt="Abisinio" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_1.png" alt="American Curl" id="SizeBox">
+                        <img src="img/cordoba9_1.png" alt="American Curl" class="SizeBox1">
                     </button>
                 </div>
             </div>
             <div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_2.png" alt="American shorthair" id="SizeBox">
+                        <img src="img/cordoba9_2.png" alt="American shorthair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
                 <div class="Box">
                     <button>
-                        <img src="img/cordoba9_3.png" alt="American wirehair" id="SizeBox">
+                        <img src="img/cordoba9_3.png" alt="American wirehair" class="SizeBox1">
                     </button>
                 </div>
             </div-->
     </main>
+    <div id="zoomModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="zoomedImage">
+    </div>
     <script src="Funcion.js"></script>
 </body>
 
