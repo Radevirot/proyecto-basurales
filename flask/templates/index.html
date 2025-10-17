@@ -7,6 +7,10 @@
 
 {%block body%}
 
-<h2>Bienvenid@ al proyecto basurales.</h2>
+{%if username == "Adriel Julián Ramírez"%}
+
+<h2>Bienvenid@ al proyecto basurales. {{username}}</h2>
+
+{%endif%}
 
 {%endblock%}
