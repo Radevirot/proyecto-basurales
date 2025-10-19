@@ -76,9 +76,6 @@ button{
     background-color: #BFBFBF;
 }
 
-ul{
-    list-style: none;
-}
 
 a{
     outline: none;
@@ -143,7 +140,7 @@ a:link{
 }
 
 #Fuentes{
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ; 
 }
 
 /*Aside Final*/
@@ -160,6 +157,7 @@ a:link{
     border-color: white;
     border-radius: 5px;
     border-width: 5px;
+    display: flex;
 }
 
 .SizeBox1 {
@@ -175,6 +173,12 @@ a:link{
     border-bottom: none;  
 }
 
+.BoxEnviar{
+    width: 80%;
+    max-width: 100px;
+}
+
+
 /*Main Final*/
 
 /*Footer Principio*/
@@ -187,6 +191,14 @@ a:link{
 }
 
 /*Footer Final*/
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 900px;
+
+}
 
 /*Lupa*/
 /*
