@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+
+{%block style%}
+"static/Formato_Etiquetador.css"
+{%endblock%}
+
+{%block title%}
+    {{ super() }}
+    Etiquetador
+{%endblock%}
+
+{%block body%}
+
+
+    <main>
+    {%for i in range(0,4)%}
+    <div>
+        {%for j in range(0,4)%}
+        {%set idx = i * 4 + j%}
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_{{idx}}.png" alt="{{idx+1}}-16" class="SizeBox1">
+            </button>
+        </div>
+        {%endfor%}
+    </div>
+    {%endfor%}
+
+    <div>
+        <p id="Letra">----</p>
+            <input type="radio" name="Radio1" value="" id="Si"></input> Si
+            <input type="radio" name="Radio1" value="" id="TalVez"></input> Tal vez
+            <input type="radio" name="Radio1" value="" id="No"></input> No
+            <input type="checkbox" name="Check" value="" id="Check"></input> Ciclico
+            <button id="toggleZoom" class="BoxEnviar">
+                Desactivar Lupa
+            </button>
+            <button class="BoxEnviar">
+                Enviar
+            </button>
+    </div>
+
+</main>
+
+<div id="zoomModal" class="modal">
+<!--span class="close">&times;</span-->
+<img class="modal-content" id="zoomedImage">
+</div>
+
+<script src="static/Funcion.js"></script>
+
+{%endblock%}

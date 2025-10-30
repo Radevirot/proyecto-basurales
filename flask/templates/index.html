@@ -1,16 +1,119 @@
 {%extends 'base.html'%}
 
+{%block style%}
+"static/Formato_Registro.css"
+{%endblock%}
+
 {%block title%}
     {{ super() }}
-    Iniciar sesión
+    Inicio
 {%endblock%}
 
 {%block body%}
 
-{%if username == "Adriel Julián Ramírez"%}
-
-<h2>Bienvenid@ al proyecto basurales. {{username}}</h2>
-
-{%endif%}
+<div class="header">
+    <a href="#default" class="logo"><img src="{{ url_for('static', filename='img/SINCUNL.png') }}" alt="Sinc-UNL" class="logosinc"></a>
+    <div class="header-right">
+      <a class="active" href="/login/google">Login</a>
+      <!--a href="#contact">Contact</a-->
+      <a href="#about">Información</a>
+    </div>
+  </div>
 
 {%endblock%}
+
+
+
+
+
+
+
+{% comment %} <main>
+    <div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_0.png" alt="1-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_1.png" alt="2-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_2.png" alt="3-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_3.png" alt="4-16" class="SizeBox1">
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_4.png" alt="5-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_5.png" alt="6-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_6.png" alt="7-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_7.png" alt="8-16" class="SizeBox1">
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_8.png" alt="9-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_9.png" alt="10-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_10.png" alt="11-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_11.png" alt="12-16" class="SizeBox1">
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_12.png" alt="13-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_13.png" alt="14-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_14.png" alt="15-16" class="SizeBox1">
+            </button>
+        </div>
+        <div class="Box">
+            <button>
+                <img src="static/images/cordoba1_0_15.png" alt="16-16" class="SizeBox1">
+            </button>
+        </div>
+    </div> {% endcomment %}

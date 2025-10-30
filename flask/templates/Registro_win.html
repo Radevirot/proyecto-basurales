@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+
+{%block style%}
+"static/Formato_Registro.css"
+{%endblock%}
+
+{%block title%}
+    {{ super() }}
+    Inicio
+{%endblock%}
+
+{%block body%}
+
+
+
+<div class="header">
+    <a href="#default" class="logo"><img src="{{ url_for('static', filename='web_img/SINCUNL.png') }}" alt="Sinc-UNL" class="logosinc"></a>
+    <div class="header-right">
+
+    {% if email %}
+    {% if permitido %}
+        <p>¡Hola {{ username }}! Tu correo ({{ email }}) está permitido.</p>
+    {% else %}
+        <p>¡Hola {{ email }}! Tu correo no está permitido.</p>
+    {% endif %}
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    {% endif %}
+
+      <a class="active" href="/login/google">Login</a>
+      <!--a href="#contact">Contact</a-->
+      <a href="#about">Información</a>
+    
+    
+    </div>
+  </div>
+
+{%endblock%}
