@@ -27,28 +27,73 @@ if(CheckButton.checked == true){
 imagenes.forEach(img => {
     let colorIndex = 0;
     const colores = ['green', 'orange', 'red'];
+    const valores = [1, 0.5, 0]; // Valores correspondientes a los colores
 
     img.addEventListener('click', function() {
+        const box = this.parentElement.parentElement;
+        let colorIndex = parseInt(box.getAttribute('data-color-index')) || 0;
+
+        if(CheckButton.checked == true){
+            // Modo cíclico
+            colorIndex = (colorIndex + 1) % colores.length;
+            box.style.borderColor = colores[colorIndex];
+            box.setAttribute('data-etiqueta', valores[colorIndex]);
+            box.setAttribute('data-color-index', colorIndex);
+        } else {
+            // Modo con radios
+            if(RadioSi.checked == true){
+                box.style.borderColor = "green";
+                box.setAttribute('data-etiqueta', 1);
+            }
+            if(RadioTalVez.checked == true){
+                box.style.borderColor = "orange";
+                box.setAttribute('data-etiqueta', 0.5);
+            }
+            if(RadioNo.checked == true){
+                box.style.borderColor = "red";
+                box.setAttribute('data-etiqueta', 0);
+            }
+        }
+        
+        // Para verificar en consola
+        console.log(`Imagen ${this.alt} - Valor: ${box.getAttribute('data-etiqueta')}`);
+    });
+
+
+    /*img.addEventListener('click', function() {
         // Modo normal - cambiar color del borde
         if(CheckButton.checked == true){
             const box = this.parentElement.parentElement;
             box.style.borderColor = colores[colorIndex];
+            if(colores[colorIndex] == "green"){
+                ValorEtiqueta = 1;
+            }
+            if(colores[colorIndex] == "orange"){
+                ValorEtiqueta = 0.5;
+            }
+            if(colores[colorIndex] == "red"){
+                ValorEtiqueta = 0;
+            }
             colorIndex = (colorIndex + 1) % colores.length;
         }else{
             if(RadioSi.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "green"
+                ValorEtiqueta = 1;
             }
             if(RadioTalVez.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "orange"
+                ValorEtiqueta = 0.5;
             }
             if(RadioNo.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "red"
+                ValorEtiqueta = 0;
             }
         }
-    });
+        console.log(ValorEtiqueta);
+    });*/
 
     img.addEventListener('mousemove', function() {
         if (zoomActivo) {
@@ -70,3 +115,71 @@ window.onclick = function(event) {
         RadioNo.checked = false;
     }
 }
+
+
+// submitBtn.addEventListener('click', function(e){
+//     e.preventDefault();
+
+//     const datos = {};
+//     document.querySelectorAll('.Box').forEach((box, idx) => {
+//         datos[idx] = parseFloat(box.getAttribute('data-etiqueta')) || -1;
+//     });
+
+//     fetch("/submit_tags", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(datos)
+//     })
+//     .then(res => res.json())
+//     .then(resp => {
+//         console.log(resp);
+//         // Reload page to show new images
+//         window.location.reload();
+//     })
+//     .catch(err => console.error(err));
+// });
+
+
+submitBtn.addEventListener('click', async (e) => {
+    e.preventDefault(); //evitamos el comportamiento normal del botón
+    submitBtn.disabled = true; //deshabilitamos el botón
+  
+    const datos = {};
+    document.querySelectorAll('.Box').forEach((box, idx) => {
+      const raw = box.dataset.etiqueta;
+      const num = raw === undefined || raw === '' ? NaN : Number(raw); //me fijo si el número es válido, si es lo guardo y si no pongo NaN
+
+      const clave = `${imagen}_${idx}`; // ejemplo: cordoba1_0_0
+      datos[clave] = Number.isFinite(num) ? num : -1; //otro checkeo de validez, si es válido lo guardo y si no -1
+    });
+    
+    //acá hacemos un fetch para mandarle los datos a flask
+    //lo hacemos con muchas validaciones y manejo de errores
+
+    try {
+      const res = await fetch('/enviar_etiquetas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+  
+      if (!res.ok) throw new Error(`Server responded ${res.status}`);
+  
+      
+      const text = await res.text();
+      let resp = null;
+      try { resp = text ? JSON.parse(text) : null; } catch (e) {
+        console.warn('Response not JSON:', text);
+      }
+      console.log('server response:', resp);
+  
+      
+      window.location.reload();  // recargamos la página
+    } catch (err) {
+      console.error('submit_tags error:', err);
+      
+      alert('Error al subir las etiquetas, revise la consola para más información.');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });

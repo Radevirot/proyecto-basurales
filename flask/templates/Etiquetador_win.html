@@ -17,9 +17,9 @@
     <div>
         {%for j in range(0,4)%}
         {%set idx = i * 4 + j%}
-        <div class="Box">
+        <div class="Box" data-etiqueta="-1" data-color-index="0">
             <button>
-                <img src="static/images/cordoba1_0_{{idx}}.png" alt="{{idx+1}}-16" class="SizeBox1">
+                <img src="static/images/{{imagen}}_{{idx}}.png" alt="{{idx+1}}-16" class="SizeBox1">
             </button>
         </div>
         {%endfor%}
@@ -35,7 +35,7 @@
             <button id="toggleZoom" class="BoxEnviar">
                 Desactivar Lupa
             </button>
-            <button class="BoxEnviar">
+            <button id="submitBtn" class="BoxEnviar">
                 Enviar
             </button>
     </div>
@@ -46,6 +46,10 @@
 <!--span class="close">&times;</span-->
 <img class="modal-content" id="zoomedImage">
 </div>
+
+<script>
+    const imagen = "{{imagen}}";
+</script>
 
 <script src="static/Funcion.js"></script>
 

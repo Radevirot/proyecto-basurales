@@ -1,9 +1,8 @@
 import os
 import csv
-import json
 import random
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv #usar variables de entorno en deployment
 
@@ -234,30 +233,14 @@ def index():
 
     return render_template("Registro_win.html", email=user_email, username=username, permitido=permitido)
     
-    
-    
-    
-    
-    #verificamos si hay una sesión buscando el correo, si hay mostramos cerrar sesión y si no iniciarla
-    #si el correo existe verificamos que esté en la whitelist
-    # user_email = session.get("email")
-    
-    # if user_email:
-    #     permitido = esta_permitido(user_email)
-    #     if permitido[0]:
-    #         username = session.get("nombre")
-    #         return f"¡Hola {username}! ¡Tu correo ({user_email}) está permitido! <a href='/logout'>Cerrar sesión</a>"
-    #         #return render_template("index.html", email=user_email, username=username)
-    #     else:
-    #         return f"¡Hola {user_email}! Tu correo ({user_email}) NO está permitido en esta página, por favor cierra sesión. <a href='/logout'>Cerrar sesión</a>"
-    # return render_template("Registro_win.html")
-
-#"<a href='/login/google'>Iniciar sesión con Google</a>"
 
 @app.route('/etiquetado')
 def etiquetado():
     
-    return render_template('Etiquetador_win.html')
+    email = session.get("email")
+    imagenes = obtener_lista_cluster_csv(email)
+    
+    return render_template('Etiquetador_win.html', imagen=imagenes[0])
 
 
 @app.route('/login/google')
@@ -296,6 +279,17 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
+
+@app.route("/enviar_etiquetas", methods=["POST"])
+def enviar_etiquetas():
+    tags = request.get_json()
+    print("Etiquetas:", tags)
+    # procesar y guardar
+
+    
+    
+    # confirmación
+    return jsonify({"status": "ok"})
 
 @app.route("/debug")
 def debug():
