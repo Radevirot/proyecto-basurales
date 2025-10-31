@@ -27,28 +27,73 @@ if(CheckButton.checked == true){
 imagenes.forEach(img => {
     let colorIndex = 0;
     const colores = ['green', 'orange', 'red'];
+    const valores = [1, 0.5, 0]; // Valores correspondientes a los colores
 
     img.addEventListener('click', function() {
+        const box = this.parentElement.parentElement;
+        let colorIndex = parseInt(box.getAttribute('data-color-index')) || 0;
+
+        if(CheckButton.checked == true){
+            // Modo cíclico
+            colorIndex = (colorIndex + 1) % colores.length;
+            box.style.borderColor = colores[colorIndex];
+            box.setAttribute('data-etiqueta', valores[colorIndex]);
+            box.setAttribute('data-color-index', colorIndex);
+        } else {
+            // Modo con radios
+            if(RadioSi.checked == true){
+                box.style.borderColor = "green";
+                box.setAttribute('data-etiqueta', 1);
+            }
+            if(RadioTalVez.checked == true){
+                box.style.borderColor = "orange";
+                box.setAttribute('data-etiqueta', 0.5);
+            }
+            if(RadioNo.checked == true){
+                box.style.borderColor = "red";
+                box.setAttribute('data-etiqueta', 0);
+            }
+        }
+        
+        // Para verificar en consola
+        console.log(`Imagen ${this.alt} - Valor: ${box.getAttribute('data-etiqueta')}`);
+    });
+
+
+    /*img.addEventListener('click', function() {
         // Modo normal - cambiar color del borde
         if(CheckButton.checked == true){
             const box = this.parentElement.parentElement;
             box.style.borderColor = colores[colorIndex];
+            if(colores[colorIndex] == "green"){
+                ValorEtiqueta = 1;
+            }
+            if(colores[colorIndex] == "orange"){
+                ValorEtiqueta = 0.5;
+            }
+            if(colores[colorIndex] == "red"){
+                ValorEtiqueta = 0;
+            }
             colorIndex = (colorIndex + 1) % colores.length;
         }else{
             if(RadioSi.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "green"
+                ValorEtiqueta = 1;
             }
             if(RadioTalVez.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "orange"
+                ValorEtiqueta = 0.5;
             }
             if(RadioNo.checked == true){
                 const box = this.parentElement.parentElement;
                 box.style.borderColor = "red"
+                ValorEtiqueta = 0;
             }
         }
-    });
+        console.log(ValorEtiqueta);
+    });*/
 
     img.addEventListener('mousemove', function() {
         if (zoomActivo) {
