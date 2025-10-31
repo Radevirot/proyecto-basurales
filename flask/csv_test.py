@@ -23,7 +23,6 @@ import os
 
 imagenes = os.listdir("static/images")
 print(len(imagenes))
-#print(imagenes)
 imagenes.sort()
 img = []
 for imagen in imagenes:

@@ -1,6 +1,7 @@
 import os
 import csv
 import json
+import random
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from authlib.integrations.flask_client import OAuth
@@ -72,33 +73,40 @@ def inicializar_cluster_csv(email):
     # - agregar al final del csv la lista resultante, que debería tener las imagenes agregadas nuevas
     
     carpeta = "user_output/tagged/clusters"
-    os.makedirs(carpeta, exist_ok=True)  # crea la carpeta si no existe
-    
-    # me quedo con lo que está antes del .
+    os.makedirs(carpeta, exist_ok=True)
     nombre_archivo = email.partition(".")[0] + ".csv" 
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
-
     existe = existe_csv(ruta_archivo,["image", "is_tagged"])
     
+    sub_imagenes = os.listdir("static/images")
+    sub_imagenes.sort()
+    imagenes = []
+    for imagen in sub_imagenes:
+        idx = imagen.find("_")
+        idx2 = imagen.find("_",idx+1)
+        ultimo = imagenes[-1] if imagenes else None
+        if ultimo != imagen[:idx2]:
+            imagenes.append(imagen[:idx2])
+    
     if not existe:
-        sub_imagenes = os.listdir("static/images")
-        sub_imagenes.sort()
-        imagenes = []
-        for imagen in sub_imagenes:
-            idx = imagen.find("_")
-            idx2 = imagen.find("_",idx+1)
-            ultimo = imagenes[-1] if imagenes else None
-            if ultimo != imagen[:idx2]:
-                imagenes.append(imagen[:idx2])
         with open(ruta_archivo, "a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             for imagen in imagenes:
                 writer.writerow([imagen, False])
     else:
-        return True
+        imagenes_csv = []
+        with open(ruta_archivo, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                imagenes_csv.append(row["image"])
+        # usamos conjuntos para sacar la intersección de las listas
+        dif_simetrica = list(set(imagenes) ^ set(imagenes_csv))
+        dif_simetrica.sort()
+        with open(ruta_archivo, "a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            for imagen in dif_simetrica:
+                writer.writerow([imagen, False])
     
-    
-    return True
 
 def actualizar_elemento_cluster_csv(email, nombre):
     # recibe el nombre de un elemento del csv
@@ -108,7 +116,22 @@ def actualizar_elemento_cluster_csv(email, nombre):
 def obtener_lista_cluster_csv(email):
     # de ese csv obtener una lista que tenga solo aquellas imágenes cuyo campo is_tagged sea False
     # aleatorizar la lista y devolverla 
-    return True
+    
+    carpeta = "user_output/tagged/clusters"
+    os.makedirs(carpeta, exist_ok=True)
+    nombre_archivo = email.partition(".")[0] + ".csv" 
+    ruta_archivo = os.path.join(carpeta, nombre_archivo)
+    
+    imagenes_csv = []
+    with open(ruta_archivo, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            is_tagged = row["is_tagged"].strip().lower() == "true" #convierto el string en booleano
+            if not is_tagged:
+                imagenes_csv.append(row["image"])
+    random.shuffle(imagenes_csv)
+
+    return imagenes_csv
 
 
 
@@ -248,8 +271,9 @@ def logout():
 @app.route("/debug")
 def debug():
     #esta ruta está para printear cosas del desarrollo, solo de prueba
-    whitelist = leer_whitelist()
-    return f"<pre>{whitelist}</pre>"
+    email = session.get("email")
+    imagenes = obtener_lista_cluster_csv(email)
+    return f"<pre>{imagenes}</pre>"
 
 
 if __name__ in "__main__":
