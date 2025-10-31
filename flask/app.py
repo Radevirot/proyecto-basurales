@@ -111,7 +111,36 @@ def inicializar_cluster_csv(email):
 def actualizar_elemento_cluster_csv(email, nombre):
     # recibe el nombre de un elemento del csv
     # lo busca en el csv y le cambia el is_tagged de false a true
-    return True
+    
+    # para esto el método más seguro y escalable (supuestamente) es usar un csv temporal
+    # que al final se lo sobreescribimos al original, entonces abrimos los dos archivos
+    # simultáneamente, leemos del original y escribimos en el temporal
+    # una vez hayamos sustituído lo que queríamos y el csv temporal esté completo,
+    # le cambiamos el nombre al temporal por el del archivo original, quedando así
+    # un único archivo con el cambio realizado
+    
+    carpeta = "user_output/tagged/clusters"
+    os.makedirs(carpeta, exist_ok=True)
+    nombre_archivo = email.partition(".")[0] + ".csv" 
+    temp_file = email.partition(".")[0] + "_tmp.csv"
+    ruta_archivo = os.path.join(carpeta, nombre_archivo)
+    ruta_archivo_tmp = os.path.join(carpeta, temp_file)
+    
+
+    with open(ruta_archivo, newline="", encoding="utf-8") as f_in, \
+        open(ruta_archivo_tmp, "w", newline="", encoding="utf-8") as f_out:
+    
+        reader = csv.DictReader(f_in)
+        writer = csv.DictWriter(f_out, fieldnames=reader.fieldnames) # copio las cabeceras del original
+        writer.writeheader() # escribo las cabeceras
+    
+        for row in reader:
+            if row["image"] == nombre:     
+                row["is_tagged"] = True 
+            writer.writerow(row)
+
+    os.replace(ruta_archivo_tmp, ruta_archivo) 
+
 
 def obtener_lista_cluster_csv(email):
     # de ese csv obtener una lista que tenga solo aquellas imágenes cuyo campo is_tagged sea False
@@ -273,7 +302,9 @@ def debug():
     #esta ruta está para printear cosas del desarrollo, solo de prueba
     email = session.get("email")
     imagenes = obtener_lista_cluster_csv(email)
-    return f"<pre>{imagenes}</pre>"
+    imagen = random.choice(imagenes)
+    actualizar_elemento_cluster_csv(email, imagen)
+    return f"<pre>{imagen}</pre> <pre>{imagenes}</pre>"
 
 
 if __name__ in "__main__":
