@@ -161,7 +161,27 @@ def obtener_lista_cluster_csv(email):
 
     return imagenes_csv
 
+# OUTPUT CSV
 
+def agregar_etiquetas_output_csv(email, nombre_imagen, etiquetas):
+    # esta función recibe el nombre de un grupo de imágenes, una lista de etiquetas
+    # ordenadas (0-15), y el correo del usuario
+    # crea un csv con el mail del usuario que corresponde a los datos finales
+    # dos columnas: image y tag
+    #
+    
+    carpeta = "user_output/tagged/images"
+    os.makedirs(carpeta, exist_ok=True)
+    nombre_archivo = email.partition(".")[0] + ".csv" 
+    ruta_archivo = os.path.join(carpeta, nombre_archivo)
+    existe_csv(ruta_archivo,["image", "tag"])
+    
+    with open(ruta_archivo, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        for idx, etiqueta in enumerate(etiquetas):
+            imagen = f"{nombre_imagen}_{idx}"
+            writer.writerow([imagen, etiqueta])
+    
 
 # SISTEMA DE WHITELIST
 
@@ -236,11 +256,24 @@ def index():
 
 @app.route('/etiquetado')
 def etiquetado():
+    # acá vamos a usar la sesión de flask para manejar la lista aleatorizada
+    # revisamos si ya hay una lista guardada en la sesión, si no hay la obtenemos y
+    # la guardamos en la sesión, esta después la cargamos en enviar_etiquetas y la vamos
+    # popeando a medida que se envían las etiquetas
+    # si ya hay una lista guardada entonces directamente la cargamos de ahí.
+    # como vamos a ir popeando la lista, leemos siempre el primer elemento.
     
     email = session.get("email")
-    imagenes = obtener_lista_cluster_csv(email)
     
-    return render_template('Etiquetador_win.html', imagen=imagenes[0])
+    if "imagenes_aleatorizadas" not in session:
+        imagenes = obtener_lista_cluster_csv(email)
+        session["imagenes_aleatorizadas"] = imagenes
+
+    imagenes = session.get("imagenes_aleatorizadas")
+    imagen_actual = imagenes[0]
+    print("Imagen actual etiquetado: ", imagen_actual)
+    
+    return render_template('Etiquetador_win.html', imagen=imagen_actual)
 
 
 @app.route('/login/google')
@@ -282,10 +315,32 @@ def logout():
 
 @app.route("/enviar_etiquetas", methods=["POST"])
 def enviar_etiquetas():
-    tags = request.get_json()
-    print("Etiquetas:", tags)
+    # recupero una lista ordenada de 16 elementos del javascript
+    # correspondiente a Etiquetador_win.html usando el request de flask
+    # si la lista está vacía tiro un error
+    # acá me guardo la primera imagen de la lista de imágenes y le hago un pop a la lista para borrar
+    # el elemento.
+    # esa nueva lista sin el primer elemento me la guardo de nuevo en la sesión
+    # uso las funciones que definí para
+    # 1. guardar las etiquetas de las 16 sub-imágenes
+    # 2. marcar el grupo de imágenes como etiquetado
+    email = session.get("email")
+    imagenes = session.get("imagenes_aleatorizadas", [])
+    
+    if not imagenes:
+        return {"error": "No quedan imágenes"}, 400
+    
+    imagen_actual = imagenes.pop(0)
+    session["imagenes_aleatorizadas"] = imagenes
+    print("Imagen actual enviar_etiquetas: ", imagen_actual)
+    
+    etiquetas = request.get_json()
+    print("Etiquetas:", etiquetas)
     # procesar y guardar
 
+    agregar_etiquetas_output_csv(email, imagen_actual, etiquetas)
+    actualizar_elemento_cluster_csv(email, imagen_actual)
+    
     
     
     # confirmación

@@ -143,18 +143,30 @@ window.onclick = function(event) {
 submitBtn.addEventListener('click', async (e) => {
     e.preventDefault(); //evitamos el comportamiento normal del botón
     submitBtn.disabled = true; //deshabilitamos el botón
-  
-    const datos = {};
-    document.querySelectorAll('.Box').forEach((box, idx) => {
-      const raw = box.dataset.etiqueta;
-      const num = raw === undefined || raw === '' ? NaN : Number(raw); //me fijo si el número es válido, si es lo guardo y si no pongo NaN
-
-      const clave = `${imagen}_${idx}`; // ejemplo: cordoba1_0_0
-      datos[clave] = Number.isFinite(num) ? num : -1; //otro checkeo de validez, si es válido lo guardo y si no -1
-    });
     
+    //versión diccionario {'0': 1, '1': 0.5...}
+
+    // const datos = {};
+    // document.querySelectorAll('.Box').forEach((box, idx) => {
+    //   const raw = box.dataset.etiqueta;
+    //   const num = raw === undefined || raw === '' ? NaN : Number(raw); //me fijo si el número es válido, si es lo guardo y si no pongo NaN
+
+    //   datos[idx] = Number.isFinite(num) ? num : -1; //otro checkeo de validez, si es válido lo guardo y si no -1
+    // });
+    
+    //versión lista [1, 0.5...]
+
+    const datos = [];
+
+    document.querySelectorAll('.Box').forEach((box) => {
+    const raw = box.dataset.etiqueta;
+    const num = raw === undefined || raw === '' ? NaN : Number(raw);
+
+    datos.push(Number.isFinite(num) ? num : -1);
+    });
+
     //acá hacemos un fetch para mandarle los datos a flask
-    //lo hacemos con muchas validaciones y manejo de errores
+    //lo hacemos con manejo de errores
 
     try {
       const res = await fetch('/enviar_etiquetas', {
@@ -163,20 +175,20 @@ submitBtn.addEventListener('click', async (e) => {
         body: JSON.stringify(datos)
       });
   
-      if (!res.ok) throw new Error(`Server responded ${res.status}`);
+      if (!res.ok) throw new Error(`El servidor respondió ${res.status}`);
   
       
-      const text = await res.text();
-      let resp = null;
-      try { resp = text ? JSON.parse(text) : null; } catch (e) {
-        console.warn('Response not JSON:', text);
-      }
-      console.log('server response:', resp);
+    //   const text = await res.text();
+    //   let resp = null;
+    //   try { resp = text ? JSON.parse(text) : null; } catch (e) {
+    //     console.warn('La respuesta no es JSON:', text);
+    //   }
+    //   console.log('respuesta del servidor:', resp);
   
-      
       window.location.reload();  // recargamos la página
+      
     } catch (err) {
-      console.error('submit_tags error:', err);
+      console.error('error de enviar_etiquetas:', err);
       
       alert('Error al subir las etiquetas, revise la consola para más información.');
     } finally {
