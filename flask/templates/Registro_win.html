@@ -19,9 +19,9 @@
 
     {% if email %}
     {% if permitido %}
-        <p>¡Hola {{ username }}! Tu correo ({{ email }}) está permitido.</p>
+        <a>¡Hola {{ username }}! Tu correo ({{ email }}) está permitido.</a>
     {% else %}
-        <p>¡Hola {{ email }}! Tu correo no está permitido.</p>
+        <a>¡Hola {{ email }}! Tu correo no está permitido.</a>
     {% endif %}
     <a href="{{ url_for('logout') }}">Cerrar sesión</a>
     {% endif %}
@@ -33,5 +33,11 @@
     
     </div>
   </div>
+
+  <body>
+    {% if permitido %}
+    <a href="etiquetado">Empezar a etiquetar</a>
+    {% endif %}
+  </body> 
 
 {%endblock%}

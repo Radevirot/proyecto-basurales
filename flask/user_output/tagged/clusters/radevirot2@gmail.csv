@@ -131,7 +131,7 @@ cordoba4_2,False
 cordoba4_3,False
 cordoba4_4,False
 cordoba4_5,False
-cordoba4_6,True
+cordoba4_6,False
 cordoba4_7,False
 cordoba4_8,False
 cordoba5_0,False
@@ -160,7 +160,7 @@ cordoba7_4,False
 cordoba7_5,False
 cordoba7_6,False
 cordoba7_7,False
-cordoba7_8,False
+cordoba7_8,True
 cordoba8_0,False
 cordoba8_1,False
 cordoba8_2,False
@@ -171,7 +171,7 @@ cordoba8_6,False
 cordoba8_7,False
 cordoba8_8,False
 cordoba9_0,False
-cordoba9_1,True
+cordoba9_1,False
 cordoba9_2,False
 cordoba9_3,False
 cordoba9_4,False
