@@ -11,33 +11,66 @@
 
 {%block body%}
 
-
-
 <div class="header">
-    <a href="#default" class="logo"><img src="{{ url_for('static', filename='web_img/SINCUNL.png') }}" alt="Sinc-UNL" class="logosinc"></a>
-    <div class="header-right">
-
-    {% if email %}
-    {% if permitido %}
-        <a>¡Hola {{ username }}! Tu correo ({{ email }}) está permitido.</a>
-    {% else %}
-        <a>¡Hola {{ email }}! Tu correo no está permitido.</a>
-    {% endif %}
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-    {% endif %}
-
-      <a class="active" href="/login/google">Login</a>
-      <!--a href="#contact">Contact</a-->
-      <a href="#about">Información</a>
-    
-    
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='web_img/SINCUNL.png') }}" alt="Sinc-UNL" class="logosinc">
     </div>
-  </div>
+    
+    <div class="header-right">
+        {% if email %}
+            <div class="user-info">
+                {% if permitido %}
+                    <div class="welcome-msg">
+                        <span class="username">¡Hola {{ username }}!</span>
+                        <span class="user-status permitted">Cuenta permitida</span>
+                    </div>
+                {% else %}
+                    <div class="welcome-msg">
+                        <span class="username">¡Hola {{ username }}!</span>
+                        <span class="user-status not-permitted">Cuenta no permitida</span>
+                    </div>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar sesión</a>
+            </div>
+        {% else %}
+            <div class="auth-section">
+                <a class="login-btn" href="/login/google">
+                    <span class="btn-icon">🔐</span>
+                    Iniciar sesión
+                </a>
+                <a href="#about" class="info-link">Información</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
 
   <body>
-    {% if permitido %}
-    <a href="etiquetado">Empezar a etiquetar</a>
-    {% endif %}
+        
+    <div class="main-content">
+      <div class="welcome-container">
+        <h1 class="welcome-title">Bienvenido al Proyecto Basurales</h1>
+        <p class="welcome-text">Ayuda a identificar basurales en imágenes satelitales.</p>
+        {% if permitido %}
+        <div class="button-container">
+          <a href="etiquetado" class="etiquetador-btn">
+            <span class="btn-icon">🏷️</span>
+            Empezar a Etiquetar
+          </a>
+        </div>
+          {% endif %}
+        <div class="info-cards">
+          <div class="info-card">
+            <h3>¿Cómo funciona?</h3>
+            <p>Selecciona imágenes y clasifica si contienen basurales usando el sistema de colores.</p>
+          </div>
+          <div class="info-card">
+            <h3>Tu contribución</h3>
+            <p>Cada etiqueta que realizas ayuda a entrenar nuestro modelo de detección.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
   </body> 
 
 {%endblock%}
