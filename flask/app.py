@@ -39,10 +39,19 @@ google = oauth.register(
 )
 
 
+# --------------------------------------------------------------------
+# Funcion para revisar si el usuario está usando un dispositivo móvil
+# --------------------------------------------------------------------
 
-
-
-
+def is_mobile():
+    #me fijo si el user_agent de flask registra algo que contenga ciertos strings que
+    #indicarían si es un dispositivo móvil
+    user_agent = request.user_agent.string.lower()
+    palabras_clave = [
+        "iphone", "android", "ipad", "mobile", "windows phone",
+        "opera mini", "blackberry", "iemobile"
+    ]
+    return any(valor in user_agent for valor in palabras_clave)
 
 # ----------------------------------------
 # Funciones auxiliares para manejo de CSVs
@@ -241,6 +250,11 @@ def guardar_login_usuario(email):
 
 @app.route("/")
 def index():
+    #reviso si está en un dispositivo móvil
+    
+    if is_mobile():
+        return "<h1>No está permitido utilizar la página desde dispositivos móviles.</h1>"
+    
     #manejo la lógica del inicio de sesión adentro del template
     user_email = session.get("email")
     username = session.get("nombre")
@@ -264,13 +278,27 @@ def etiquetado():
     # si ya hay una lista guardada entonces directamente la cargamos de ahí.
     # como vamos a ir popeando la lista, leemos siempre el primer elemento.
     
+    if is_mobile():
+        return "<h1>No está permitido utilizar la página desde dispositivos móviles.</h1>"
+    
     email = session.get("email")
+    
+    # acá reviso si el usuario trató de entrar a la página poniendo /etiquetado en la URL directamente
+    # o sea que si no hay mail en la sesión o no está permitido lo vuelvo a mandar a la página principal
+    if not email:
+        return redirect(url_for("index"))
+    if not esta_permitido(email)[0]:
+        return redirect(url_for("index"))
     
     if "imagenes_aleatorizadas" not in session:
         imagenes = obtener_lista_cluster_csv(email)
         session["imagenes_aleatorizadas"] = imagenes
 
     imagenes = session.get("imagenes_aleatorizadas")
+    
+    if not imagenes:
+        return "<h1>¡Ya no quedan más imágenes por etiquetar!</h1>"
+    
     imagen_actual = imagenes[0]
     print("Imagen actual etiquetado: ", imagen_actual)
     

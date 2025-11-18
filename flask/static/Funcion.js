@@ -117,42 +117,10 @@ window.onclick = function(event) {
 }
 
 
-// submitBtn.addEventListener('click', function(e){
-//     e.preventDefault();
-
-//     const datos = {};
-//     document.querySelectorAll('.Box').forEach((box, idx) => {
-//         datos[idx] = parseFloat(box.getAttribute('data-etiqueta')) || -1;
-//     });
-
-//     fetch("/submit_tags", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(datos)
-//     })
-//     .then(res => res.json())
-//     .then(resp => {
-//         console.log(resp);
-//         // Reload page to show new images
-//         window.location.reload();
-//     })
-//     .catch(err => console.error(err));
-// });
-
 
 submitBtn.addEventListener('click', async (e) => {
     e.preventDefault(); //evitamos el comportamiento normal del botón
     submitBtn.disabled = true; //deshabilitamos el botón
-    
-    //versión diccionario {'0': 1, '1': 0.5...}
-
-    // const datos = {};
-    // document.querySelectorAll('.Box').forEach((box, idx) => {
-    //   const raw = box.dataset.etiqueta;
-    //   const num = raw === undefined || raw === '' ? NaN : Number(raw); //me fijo si el número es válido, si es lo guardo y si no pongo NaN
-
-    //   datos[idx] = Number.isFinite(num) ? num : -1; //otro checkeo de validez, si es válido lo guardo y si no -1
-    // });
     
     //versión lista [1, 0.5...]
 
@@ -176,14 +144,7 @@ submitBtn.addEventListener('click', async (e) => {
       });
   
       if (!res.ok) throw new Error(`El servidor respondió ${res.status}`);
-  
-      
-    //   const text = await res.text();
-    //   let resp = null;
-    //   try { resp = text ? JSON.parse(text) : null; } catch (e) {
-    //     console.warn('La respuesta no es JSON:', text);
-    //   }
-    //   console.log('respuesta del servidor:', resp);
+
   
       window.location.reload();  // recargamos la página
       
