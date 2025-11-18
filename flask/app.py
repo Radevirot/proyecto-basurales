@@ -2,8 +2,9 @@ import os
 import csv
 import random
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
 from authlib.integrations.flask_client import OAuth
+from authlib.integrations.base_client import OAuthError
 from dotenv import load_dotenv #usar variables de entorno en deployment
 
 # --------------------
@@ -287,7 +288,22 @@ def login_google():
 
 @app.route("/authorize/google")
 def authorize_google():
-    google.authorize_access_token() #no me guardo el token porque no lo necesito
+    
+    # reviso si el usuario canceló el login
+    error = request.args.get("error")
+    if error:
+        app.logger.warning(f"Falló o se canceló el inicio de sesión con Google: {error}")
+        flash("No autorizaste el acceso con Google.", "error")
+        return redirect(url_for("index"))
+
+    # uso un try para revisar si hubo algún error por parte de google al iniciar sesión
+    try:
+        google.authorize_access_token()  # no me guardo el token porque no lo necesito
+    except OAuthError as e:
+        app.logger.error(f"Error obteniendo token de acceso: {str(e)}")
+        flash("Hubo un problema con el inicio de sesión de Google.", "error")
+        return redirect(url_for("index"))
+    
     userinfo_endpoint = google.server_metadata['userinfo_endpoint']
     res = google.get(userinfo_endpoint)
     info_usuario = res.json()
