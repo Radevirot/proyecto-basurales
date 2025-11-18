@@ -8,8 +8,25 @@ const CheckButton = document.getElementById('Check');
 const RadioSi = document.getElementById('Si');
 const RadioTalVez = document.getElementById('TalVez');
 const RadioNo = document.getElementById('No');
+const submitBtn = document.getElementById('submitBtn');
 
+
+submitBtn.disabled = true; // inicio deshabilitado
 CheckButton.checked = true;
+
+
+function actualizarEstadoSubmit() {
+    const boxes = document.querySelectorAll('.Box');
+  
+    const todasEtiquetadas = Array.from(boxes).every(box => {
+      const raw = box.dataset.etiqueta;
+      // consideramos "etiquetada" si tiene algún valor definido o es distinto de -1
+      return raw !== undefined && raw !== '' && raw !== '-1';
+    });
+  
+    submitBtn.disabled = !todasEtiquetadas;
+  }
+
 
 // Función para activar/desactivar el modo zoom
 toggleZoomBtn.addEventListener('click', function() {
@@ -57,6 +74,8 @@ imagenes.forEach(img => {
         
         // Para verificar en consola
         console.log(`Imagen ${this.alt} - Valor: ${box.getAttribute('data-etiqueta')}`);
+
+        actualizarEstadoSubmit();
     });
 
 
@@ -156,3 +175,5 @@ submitBtn.addEventListener('click', async (e) => {
       submitBtn.disabled = false;
     }
   });
+
+  actualizarEstadoSubmit();
