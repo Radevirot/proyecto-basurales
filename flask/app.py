@@ -83,7 +83,7 @@ def inicializar_cluster_csv(email):
     
     carpeta = "user_output/tagged/clusters"
     os.makedirs(carpeta, exist_ok=True)
-    nombre_archivo = email.partition(".")[0] + ".csv" 
+    nombre_archivo = "clusters_" + email.replace("@","_").replace(".","_") + ".csv" 
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
     existe = existe_csv(ruta_archivo,["image", "is_tagged"])
     
@@ -130,8 +130,8 @@ def actualizar_elemento_cluster_csv(email, nombre):
     
     carpeta = "user_output/tagged/clusters"
     os.makedirs(carpeta, exist_ok=True)
-    nombre_archivo = email.partition(".")[0] + ".csv" 
-    temp_file = email.partition(".")[0] + "_tmp.csv"
+    nombre_archivo = "clusters_" + email.replace("@","_").replace(".","_") + ".csv" 
+    temp_file = "clusters_" + email.replace("@","_").replace(".","_") + "_tmp.csv"
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
     ruta_archivo_tmp = os.path.join(carpeta, temp_file)
     
@@ -157,7 +157,7 @@ def obtener_lista_cluster_csv(email):
     
     carpeta = "user_output/tagged/clusters"
     os.makedirs(carpeta, exist_ok=True)
-    nombre_archivo = email.partition(".")[0] + ".csv" 
+    nombre_archivo = "clusters_" + email.replace("@","_").replace(".","_") + ".csv" 
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
     
     imagenes_csv = []
@@ -182,7 +182,7 @@ def agregar_etiquetas_output_csv(email, nombre_imagen, etiquetas):
     
     carpeta = "user_output/tagged/images"
     os.makedirs(carpeta, exist_ok=True)
-    nombre_archivo = email.partition(".")[0] + ".csv" 
+    nombre_archivo = "tags_" + email.replace("@","_").replace(".","_") + ".csv" 
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
     existe_csv(ruta_archivo,["image", "tag"])
     
@@ -233,7 +233,7 @@ def guardar_login_usuario(email):
     permitido = esta_permitido(email)
     
     # me quedo con lo que está antes del .
-    nombre_archivo = email.partition(".")[0] + ".csv" 
+    nombre_archivo = "login_" + email.replace("@","_").replace(".","_") + ".csv" 
     ruta_archivo = os.path.join(carpeta, nombre_archivo)
 
     # Si el archivo no existe, lo creamos con encabezado y luego agregamos la fila con el last_login
@@ -300,9 +300,9 @@ def etiquetado():
         return "<h1>¡Ya no quedan más imágenes por etiquetar!</h1>"
     
     imagen_actual = imagenes[0]
-    print("Imagen actual etiquetado: ", imagen_actual)
+    restantes = len(imagenes)
     
-    return render_template('Etiquetador_win.html', imagen=imagen_actual)
+    return render_template('Etiquetador_win.html', imagen=imagen_actual, restantes=restantes)
 
 
 @app.route('/login/google')
@@ -376,10 +376,8 @@ def enviar_etiquetas():
     
     imagen_actual = imagenes.pop(0)
     session["imagenes_aleatorizadas"] = imagenes
-    print("Imagen actual enviar_etiquetas: ", imagen_actual)
     
     etiquetas = request.get_json()
-    print("Etiquetas:", etiquetas)
     # procesar y guardar
 
     agregar_etiquetas_output_csv(email, imagen_actual, etiquetas)
