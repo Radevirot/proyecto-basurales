@@ -16,25 +16,32 @@ body{
     background-size: cover;
     background-attachment: fixed;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 main{
     background-color: #BFBFBF;
-    float:left;
     border-radius: 15px;
-    margin-right: 10px;
+    padding: 15px;
+    width: auto;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
-
 
 /*Cuerpo Final*/
 
 /*Elementos Principio*/
 
 button{
-    width: 100%;
     border-radius: 5px;
     color: black;
     border-color: #608BA6;
@@ -42,7 +49,6 @@ button{
 }
 
 /*Elementos Final*/
-
 
 /*Aside Principio*/
 
@@ -63,21 +69,20 @@ button{
 /*Main Principio*/
 
 .Box{
-    float: left;
-    margin-left: 3px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-right: 3px;
+    margin: 0.1px;
     border-style: solid;
     border-color: white;
     border-radius: 5px;
     border-width: 5px;
     display: flex;
+    box-sizing: border-box;
 }
 
 .SizeBox1 {
-    width: 160px; 
-    height: 160px;
+    width: 100%; 
+    height: 100%;
+    max-width: 160px;
+    max-height: 160px;
     object-fit: cover;
     border-style: groove;
     border-color: #A08A9C;
@@ -89,7 +94,7 @@ button{
 }
 
 .BoxEnviar{
-    width: 80%;
+    width: 100%;
     max-width: 200px;
     border-color: black;
     background-color: white;
@@ -98,6 +103,8 @@ button{
     justify-content: center;
     align-items: center;
     transition: opacity 0.2s, filter 0.2s;
+    padding: 12px 20px;
+    font-weight: bold;
 }
 
 .BoxEnviar:disabled {
@@ -107,10 +114,12 @@ button{
 }
 
 .BoxLupa{
-    width: 80%;
-    max-width: 100px;
+    width: 100%;
+    max-width: 200px;
     border-color: black;
     background-color: white;
+    padding: 12px 20px;
+    font-weight: bold;
 }
 
 .controls-container {
@@ -130,6 +139,7 @@ button{
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .radio-group label {
@@ -137,6 +147,34 @@ button{
     align-items: center;
     gap: 5px;
     cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+.radio-group label[for="Si"] {
+    border-color: green;
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+.radio-group label[for="TalVez"] {
+    border-color: orange;
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+.radio-group label[for="No"] {
+    border-color: red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.radio-group input[type="radio"]:checked + span {
+    font-weight: bold;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 5px;
 }
 
 .button-group {
@@ -145,22 +183,129 @@ button{
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
+    width: 100%;
 }
-    
+
+/* Estilos para hacer la página responsiva */
+.images-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* Panel de zoom fuera del main */
+.zoom-panel {
+    background-color: #BFBFBF;
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 800px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+}
+
+/* Estilos para el modal de zoom */
+.modal {
+    display: none;
+    width: 100%;
+    max-width: 800px;
+}
+
+.modal-content {
+    width: 100%;
+    border-radius: 15px;
+    border-width: 5px;
+    border-color: white;
+    border-style: groove;
+}
 
 /*Main Final*/
 
-
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 900px;
-    border-radius: 15px;
-    border-color: crimson;
-    border-style: dashed;
+/* Media queries para responsividad */
+@media screen and (min-width: 1024px) {
+    body {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+    
+    main {
+        max-width: 800px;
+    }
+    
+    .zoom-panel {
+        max-width: 800px;
+    }
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    
+    .images-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .radio-group, .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .BoxLupa, .BoxEnviar {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .SizeBox1 {
+        max-width: 100%;
+        max-height: 140px;
+    }
+    
+    .zoom-panel {
+        max-width: 100%;
+        width: 100%;
+    }
+}
 
+@media screen and (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    main {
+        padding: 10px;
+    }
+    
+    .images-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .radio-group label {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .SizeBox1 {
+        max-height: 120px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    main {
+        max-width: 900px;
+    }
+    
+    .images-container {
+        max-width: 800px;
+    }
+    
+    .SizeBox1 {
+        max-width: 180px;
+        max-height: 180px;
+    }
 }

@@ -1,0 +1,167 @@
+/*Import Principio*/
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:ital,wght@1,100&family=Nabla&display=swap');
+
+/*Import Final*/
+
+/*Cuerpo Principio*/
+
+body{
+    background-color: gray;
+    background-blend-mode:multiply;
+    background-image: url(web_img/UNLEdificio.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main{
+    background-color: #BFBFBF;
+    float:left;
+    border-radius: 15px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/*Cuerpo Final*/
+
+/*Elementos Principio*/
+
+button{
+    width: 100%;
+    border-radius: 5px;
+    color: black;
+    border-color: #608BA6;
+    background-color: #BFBFBF;
+}
+
+/*Elementos Final*/
+
+
+/*Aside Principio*/
+
+#Letra{
+    margin-left: 30px;
+    font-style: oblique;
+    font-size: 22px;
+    font-stretch: ultra-condensed;
+    color: black;
+}
+
+#Fuentes{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ; 
+}
+
+/*Aside Final*/
+
+/*Main Principio*/
+
+.Box{
+    float: left;
+    margin-left: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 5px;
+    border-width: 5px;
+    display: flex;
+}
+
+.SizeBox1 {
+    width: 160px; 
+    height: 160px;
+    object-fit: cover;
+    border-style: groove;
+    border-color: #A08A9C;
+    border-width: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;  
+}
+
+.BoxEnviar{
+    width: 80%;
+    max-width: 200px;
+    border-color: black;
+    background-color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.2s, filter 0.2s;
+}
+
+.BoxEnviar:disabled {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.BoxLupa{
+    width: 80%;
+    max-width: 100px;
+    border-color: black;
+    background-color: white;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0;
+    clear: both;
+}
+        
+.radio-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+    
+
+/*Main Final*/
+
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 15px;
+    border-width: 5px;
+    border-color: white;
+    border-style:groove;
+}
+
+@media screen and (max-width: 768px) {
+
+}

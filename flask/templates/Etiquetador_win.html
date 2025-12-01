@@ -11,54 +11,53 @@
 
 {%block body%}
 
-
-    <main>
-    {%for i in range(0,4)%}
-    <div>
-        {%for j in range(0,4)%}
-        {%set idx = i * 4 + j%}
-        <div class="Box" data-etiqueta="-1" data-color-index="0">
-            <button>
-                <img src="static/images/{{imagen}}_{{idx}}.png" alt="{{idx+1}}-16" class="SizeBox1">
-            </button>
-        </div>
+<main>
+    <div class="images-container">
+        {%for i in range(0,16)%}
+            <div class="Box" data-etiqueta="-1" data-color-index="0">
+                <button>
+                    <img src="static/images/{{imagen}}_{{i}}.png" alt="{{i+1}}-16" class="SizeBox1">
+                </button>
+            </div>
         {%endfor%}
     </div>
-    {%endfor%}
 
     <div class="controls-container">
         <div class="radio-group">
-            <label>
-                <input type="radio" name="Radio1" value="" id="Si"> Si
+            <label for="Si">
+                <input type="radio" name="Radio1" value="" id="Si">
+                <span>Si</span>
             </label>
-            <label>
-                <input type="radio" name="Radio1" value="" id="TalVez"> Tal vez
+            <label for="TalVez">
+                <input type="radio" name="Radio1" value="" id="TalVez">
+                <span>Tal vez</span>
             </label>
-            <label>
-                <input type="radio" name="Radio1" value="" id="No"> No
+            <label for="No">
+                <input type="radio" name="Radio1" value="" id="No">
+                <span>No</span>
             </label>
-            <label>
-                <input type="checkbox" name="Check" value="" id="Check"> Ciclico
+            <label for="Check">
+                <input type="checkbox" name="Check" value="" id="Check">
+                <span>Ciclico</span>
             </label>
         </div>
         <div class="button-group">
             <button id="toggleZoom" class="BoxLupa">
                 Desactivar Lupa
             </button>
-            <button id="submitBtn" class="BoxEnviar">
+            <button title="¡Completar los 16 recuadros!" id="submitBtn" class="BoxEnviar">
                 Enviar
             </button>
         </div>
         <a>Imágenes restantes: {{restantes}}</a>
     </div>
-
 </main>
 
-<div id="zoomModal" class="modal">
-<!--span class="close">&times;</span-->
-<img class="modal-content" id="zoomedImage">
+<div class="zoom-panel">
+    <div id="zoomModal" class="modal">
+        <img class="modal-content" id="zoomedImage">
+    </div>
 </div>
-
 
 <script src="static/Funcion.js"></script>
 
