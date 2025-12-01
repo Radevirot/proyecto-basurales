@@ -297,7 +297,7 @@ def etiquetado():
     imagenes = session.get("imagenes_aleatorizadas")
     
     if not imagenes:
-        return "<h1>¡Ya no quedan más imágenes por etiquetar!</h1>"
+        return render_template("NoMoreImages.html")
     
     imagen_actual = imagenes[0]
     restantes = len(imagenes)

@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+
+{%block style%}
+"static/Formato_NoMoreImages.css"
+{%endblock%}
+
+{%block title%}
+    {{ super() }}
+    Etiquetador
+{%endblock%}
+
+{%block body%}
+
+<div class="main-content">
+      <div class="welcome-container">
+        <h1 class="welcome-title">Finalizaste el etiquetado</h1>
+        <p class="welcome-text">Por el momento terminaste de etiquetar, vuelve más adelante.</p>
+        <div class="button-container">
+          <a href="/" class="etiquetador-btn">
+            <span class="btn-icon">⬅️</span>
+            Volver
+          </a>
+        </div>
+      </div>
+    </div>
+
+{%endblock%}
