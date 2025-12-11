@@ -12,6 +12,26 @@ const submitBtn = document.getElementById('submitBtn');
 
 submitBtn.disabled = true; // inicio deshabilitado
 
+//restaurar selección guardada
+const savedRadio = localStorage.getItem('Radio1_selected');
+if (savedRadio) {
+    const radio = document.querySelector(`input[name="Radio1"][value="${savedRadio}"]`);
+    if (radio) {
+        radio.checked = true;
+    }
+} else {
+    // si querés que por defecto sea Cíclico:
+    RadioNo.checked = true;
+}
+
+// cuando el usuario cambia de radio, lo guardamos
+const radios = document.querySelectorAll('input[name="Radio1"]');
+radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+        localStorage.setItem('Radio1_selected', radio.value);
+    });
+});
+
 function actualizarEstadoSubmit() {
     const boxes = document.querySelectorAll('.Box');
   
@@ -104,7 +124,7 @@ submitBtn.addEventListener('click', async (e) => {
     //lo hacemos con manejo de errores
 
     try {
-      const res = await fetch('/enviar_etiquetas', {
+      const res = await fetch('/ia-basurales/enviar_etiquetas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
