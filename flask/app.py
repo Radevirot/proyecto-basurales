@@ -16,7 +16,11 @@ load_dotenv("keys.env")
 CSV_WHITELIST = "whitelist.csv"
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY")
+
+SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("Falta FLASK_SECREY_KEY en las variables de entorno")
+app.secret_key = SECRET_KEY
 
 
 CLIENT_ID = os.getenv("CLIENT_ID")
@@ -387,15 +391,6 @@ def enviar_etiquetas():
     
     # confirmación
     return jsonify({"status": "ok"})
-
-@app.route("/debug")
-def debug():
-    #esta ruta está para printear cosas del desarrollo, solo de prueba
-    email = session.get("email")
-    imagenes = obtener_lista_cluster_csv(email)
-    imagen = random.choice(imagenes)
-    actualizar_elemento_cluster_csv(email, imagen)
-    return f"<pre>{imagen}</pre> <pre>{imagenes}</pre>"
 
 
 if __name__ in "__main__":
