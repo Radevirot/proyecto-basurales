@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client import OAuthError
 from dotenv import load_dotenv #usar variables de entorno en deployment
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # --------------------
 # Configuración
@@ -18,7 +19,21 @@ if FLASK_ENV != "production":
 
 CSV_WHITELIST = "whitelist.csv"
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path="/ia-basurales/static",
+    static_folder="static"                   
+)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
+if os.getenv("FLASK_ENV") == "production":
+    app.config.update(
+        SESSION_COOKIE_SECURE=True,    
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
+        PREFERRED_URL_SCHEME="https",   
+    )
 
 PORT = os.getenv("PORT",5000)
 FLASK_DEBUG = os.getenv("FLASK_DEBUG") == "1"
@@ -258,7 +273,9 @@ def guardar_login_usuario(email):
 # Rutas de la página web
 # -----------------------
 
-@app.route("/")
+RUTA_BASE = "/ia-basurales"
+
+@app.route(f'{RUTA_BASE}/')
 def index():
     #reviso si está en un dispositivo móvil
     
@@ -278,17 +295,17 @@ def index():
 
     return render_template("Registro_win.html", email=user_email, username=username, permitido=permitido)
     
-@app.route('/sesion', methods=['GET'])
+@app.route(f'{RUTA_BASE}/sesion', methods=['GET'])
 def sesion():
     return render_template("Sesion.html")
 
-@app.route('/sesion', methods=['POST'])
+@app.route(f'{RUTA_BASE}/sesion', methods=['POST'])
 def respuesta_sesion():
     session["email"] = request.form.get("email")
     session["nombre"] = request.form.get("nombre")
     return redirect(url_for("index"))
 
-@app.route('/etiquetado')
+@app.route(f'{RUTA_BASE}/etiquetado')
 def etiquetado():
     # acá vamos a usar la sesión de flask para manejar la lista aleatorizada
     # revisamos si ya hay una lista guardada en la sesión, si no hay la obtenemos y
@@ -324,7 +341,7 @@ def etiquetado():
     return render_template('Etiquetador_win.html', imagen=imagen_actual, restantes=restantes)
 
 
-@app.route('/login/google')
+@app.route(f'{RUTA_BASE}/login/google')
 def login_google():
     try:
         redirect_uri = url_for('authorize_google',_external=True)
@@ -333,7 +350,7 @@ def login_google():
         app.logger.error(f"Error durante el inicio de sesión:{str(e)}")
         return "Ocurrió un error durante el inicio de sesión", 500
 
-@app.route("/authorize/google")
+@app.route(f'{RUTA_BASE}/authorize/google')
 def authorize_google():
     
     # reviso si el usuario canceló el login
@@ -369,14 +386,14 @@ def authorize_google():
 
     return redirect(url_for("index"))
 
-@app.route("/logout")
+@app.route(f'{RUTA_BASE}/logout')
 def logout():
     #cerramos sesión y volvemos al inicio
     session.clear()
     return redirect(url_for("index"))
 
 
-@app.route("/enviar_etiquetas", methods=["POST"])
+@app.route(f'{RUTA_BASE}/enviar_etiquetas', methods=["POST"])
 def enviar_etiquetas():
     # recupero una lista ordenada de 16 elementos del javascript
     # correspondiente a Etiquetador_win.html usando el request de flask
