@@ -13,7 +13,6 @@ const submitBtn = document.getElementById('submitBtn');
 
 submitBtn.disabled = true; // inicio deshabilitado
 
-
 function actualizarEstadoSubmit() {
     const boxes = document.querySelectorAll('.Box');
   

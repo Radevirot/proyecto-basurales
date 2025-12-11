@@ -410,7 +410,7 @@ def enviar_etiquetas():
 
 if __name__ == "__main__":
     app.run(
-        host = "10.1.1.99",
+        host = "pc44.local",
         port = int(PORT),
         debug = FLASK_DEBUG
     )
