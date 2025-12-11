@@ -11,11 +11,17 @@ from dotenv import load_dotenv #usar variables de entorno en deployment
 # Configuración
 # --------------------
 
-load_dotenv("keys.env")
+FLASK_ENV = os.getenv("FLASK_ENV")
+
+if FLASK_ENV != "production":
+    load_dotenv("keys.env")
 
 CSV_WHITELIST = "whitelist.csv"
 
 app = Flask(__name__)
+
+PORT = os.getenv("PORT",5000)
+FLASK_DEBUG = os.getenv("FLASK_DEBUG") == "1"
 
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 if not SECRET_KEY:
@@ -272,6 +278,15 @@ def index():
 
     return render_template("Registro_win.html", email=user_email, username=username, permitido=permitido)
     
+@app.route('/sesion', methods=['GET'])
+def sesion():
+    return render_template("Sesion.html")
+
+@app.route('/sesion', methods=['POST'])
+def respuesta_sesion():
+    session["email"] = request.form.get("email")
+    session["nombre"] = request.form.get("nombre")
+    return redirect(url_for("index"))
 
 @app.route('/etiquetado')
 def etiquetado():
@@ -393,5 +408,9 @@ def enviar_etiquetas():
     return jsonify({"status": "ok"})
 
 
-if __name__ in "__main__":
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(
+        host = "10.1.1.99",
+        port = int(PORT),
+        debug = FLASK_DEBUG
+    )

@@ -4,7 +4,7 @@ const imagenes = document.querySelectorAll('.SizeBox1');
 const modal = document.getElementById('zoomModal');
 const zoomedImg = document.getElementById('zoomedImage');
 const toggleZoomBtn = document.getElementById('toggleZoom');
-const CheckButton = document.getElementById('Check');
+const RadioCiclico = document.getElementById('Ciclico');
 const RadioSi = document.getElementById('Si');
 const RadioTalVez = document.getElementById('TalVez');
 const RadioNo = document.getElementById('No');
@@ -12,7 +12,6 @@ const submitBtn = document.getElementById('submitBtn');
 
 
 submitBtn.disabled = true; // inicio deshabilitado
-CheckButton.checked = true;
 
 
 function actualizarEstadoSubmit() {
@@ -34,11 +33,6 @@ toggleZoomBtn.addEventListener('click', function() {
     this.textContent = zoomActivo ? 'Desactivar Lupa' : 'Activar Lupa';
 });
 
-if(CheckButton.checked == true){
-    RadioSi.checked = false;
-    RadioTalVez.checked = false;
-    RadioNo.checked = false;
-}
 
 // Para cada imagen
 imagenes.forEach(img => {
@@ -50,26 +44,24 @@ imagenes.forEach(img => {
         const box = this.parentElement.parentElement;
         let colorIndex = parseInt(box.getAttribute('data-color-index')) || 0;
 
-        if(CheckButton.checked == true){
+        if(RadioCiclico.checked == true){
             // Modo cíclico
             colorIndex = (colorIndex + 1) % colores.length;
             box.style.borderColor = colores[colorIndex];
             box.setAttribute('data-etiqueta', valores[colorIndex]);
             box.setAttribute('data-color-index', colorIndex);
-        } else {
-            // Modo con radios
-            if(RadioSi.checked == true){
-                box.style.borderColor = "green";
-                box.setAttribute('data-etiqueta', 1);
-            }
-            if(RadioTalVez.checked == true){
-                box.style.borderColor = "orange";
-                box.setAttribute('data-etiqueta', 0.5);
-            }
-            if(RadioNo.checked == true){
-                box.style.borderColor = "red";
-                box.setAttribute('data-etiqueta', 0);
-            }
+        }
+        if(RadioSi.checked == true){
+            box.style.borderColor = "green";
+            box.setAttribute('data-etiqueta', 1);
+        }
+        if(RadioTalVez.checked == true){
+            box.style.borderColor = "orange";
+            box.setAttribute('data-etiqueta', 0.5);
+        }
+        if(RadioNo.checked == true){
+            box.style.borderColor = "red";
+            box.setAttribute('data-etiqueta', 0);
         }
         
         // Para verificar en consola
@@ -78,41 +70,6 @@ imagenes.forEach(img => {
         actualizarEstadoSubmit();
     });
 
-
-    /*img.addEventListener('click', function() {
-        // Modo normal - cambiar color del borde
-        if(CheckButton.checked == true){
-            const box = this.parentElement.parentElement;
-            box.style.borderColor = colores[colorIndex];
-            if(colores[colorIndex] == "green"){
-                ValorEtiqueta = 1;
-            }
-            if(colores[colorIndex] == "orange"){
-                ValorEtiqueta = 0.5;
-            }
-            if(colores[colorIndex] == "red"){
-                ValorEtiqueta = 0;
-            }
-            colorIndex = (colorIndex + 1) % colores.length;
-        }else{
-            if(RadioSi.checked == true){
-                const box = this.parentElement.parentElement;
-                box.style.borderColor = "green"
-                ValorEtiqueta = 1;
-            }
-            if(RadioTalVez.checked == true){
-                const box = this.parentElement.parentElement;
-                box.style.borderColor = "orange"
-                ValorEtiqueta = 0.5;
-            }
-            if(RadioNo.checked == true){
-                const box = this.parentElement.parentElement;
-                box.style.borderColor = "red"
-                ValorEtiqueta = 0;
-            }
-        }
-        console.log(ValorEtiqueta);
-    });*/
 
     img.addEventListener('mousemove', function() {
         if (zoomActivo) {
@@ -128,11 +85,6 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-    if(CheckButton.checked == true){
-        RadioSi.checked = false;
-        RadioTalVez.checked = false;
-        RadioNo.checked = false;
-    }
 }
 
 
@@ -140,8 +92,6 @@ window.onclick = function(event) {
 submitBtn.addEventListener('click', async (e) => {
     e.preventDefault(); //evitamos el comportamiento normal del botón
     submitBtn.disabled = true; //deshabilitamos el botón
-    
-    //versión lista [1, 0.5...]
 
     const datos = [];
 

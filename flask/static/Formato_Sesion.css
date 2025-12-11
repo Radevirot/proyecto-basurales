@@ -1,0 +1,88 @@
+body{
+    background-color: gray;
+    background-blend-mode:multiply;
+    background-image: url(web_img/UNLEdificio.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.welcome-container {
+  max-width: 800px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.welcome-title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.button-container {
+  margin: 30px 0;
+}
+
+.etiquetador-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  min-width: 250px;
+  gap: 10px;
+}
+
+.etiquetador-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.6);
+  background: linear-gradient(135deg, #45a049, #4CAF50);
+}
+
+.etiquetador-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(76, 175, 80, 0.4);
+}
+
+.btn-icon {
+  font-size: 1.5rem;
+}
+
+form{
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

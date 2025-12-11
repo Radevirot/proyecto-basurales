@@ -37,6 +37,10 @@ main{
     flex-direction: column;
 }
 
+a{
+    text-decoration: none;
+}
+
 /*Cuerpo Final*/
 
 /*Elementos Principio*/
@@ -50,7 +54,7 @@ button{
 
 /*Elementos Final*/
 
-/*Aside Principio*/
+/*Fuente Principio*/
 
 #Letra{
     margin-left: 30px;
@@ -64,7 +68,7 @@ button{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ; 
 }
 
-/*Aside Final*/
+/*Fuente Final*/
 
 /*Main Principio*/
 
@@ -169,6 +173,11 @@ button{
     background-color: rgba(255, 0, 0, 0.1);
 }
 
+.radio-group label[for="Check"] {
+    border-color: gray;
+    background-color: rgba(97, 99, 97, 0.1);
+}
+
 .radio-group input[type="radio"]:checked + span {
     font-weight: bold;
 }
@@ -186,7 +195,7 @@ button{
     width: 100%;
 }
 
-/* Estilos para hacer la página responsiva */
+/* Responsividad */
 .images-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -196,7 +205,7 @@ button{
     margin: 0 auto;
 }
 
-/* Panel de zoom fuera del main */
+/* Zoom */
 .zoom-panel {
     background-color: #BFBFBF;
     border-radius: 15px;
@@ -209,7 +218,6 @@ button{
     height: fit-content;
 }
 
-/* Estilos para el modal de zoom */
 .modal {
     display: none;
     width: 100%;
@@ -226,7 +234,7 @@ button{
 
 /*Main Final*/
 
-/* Media queries para responsividad */
+/* Responsividad */
 @media screen and (min-width: 1024px) {
     body {
         flex-wrap: nowrap;
