@@ -10,7 +10,6 @@ const RadioTalVez = document.getElementById('TalVez');
 const RadioNo = document.getElementById('No');
 const submitBtn = document.getElementById('submitBtn');
 
-
 submitBtn.disabled = true; // inicio deshabilitado
 
 function actualizarEstadoSubmit() {
