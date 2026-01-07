@@ -3,7 +3,7 @@ let zoomActivo = true;
 const imagenes = document.querySelectorAll('.SizeBox1');
 const modal = document.getElementById('zoomModal');
 const zoomedImg = document.getElementById('zoomedImage');
-const toggleZoomBtn = document.getElementById('toggleZoom');
+let toggleZoomBtn = true;
 const RadioCiclico = document.getElementById('Ciclico');
 const RadioSi = document.getElementById('Si');
 const RadioTalVez = document.getElementById('TalVez');
@@ -45,17 +45,10 @@ function actualizarEstadoSubmit() {
   }
 
 
-// Función para activar/desactivar el modo zoom
-toggleZoomBtn.addEventListener('click', function() {
-    zoomActivo = !zoomActivo;
-    this.textContent = zoomActivo ? 'Desactivar Lupa' : 'Activar Lupa';
-});
-
-
 // Para cada imagen
 imagenes.forEach(img => {
     let colorIndex = 0;
-    const colores = ['green', 'orange', 'red'];
+    const colores = ['orange', 'gray', 'blue'];
     const valores = [1, 0.5, 0]; // Valores correspondientes a los colores
 
     img.addEventListener('click', function() {
@@ -70,15 +63,15 @@ imagenes.forEach(img => {
             box.setAttribute('data-color-index', colorIndex);
         }
         if(RadioSi.checked == true){
-            box.style.borderColor = "green";
+            box.style.borderColor = "orange";
             box.setAttribute('data-etiqueta', 1);
         }
         if(RadioTalVez.checked == true){
-            box.style.borderColor = "orange";
+            box.style.borderColor = "gray";
             box.setAttribute('data-etiqueta', 0.5);
         }
         if(RadioNo.checked == true){
-            box.style.borderColor = "red";
+            box.style.borderColor = "blue";
             box.setAttribute('data-etiqueta', 0);
         }
         
