@@ -34,7 +34,7 @@
             </div>
         {% else %}
             <div class="auth-section">
-                <a class="login-btn" href="sesion">
+                <a class="login-btn" href="{{ url_for('login_google') }}">
                     <span class="btn-icon">🔐</span>
                     Iniciar sesión
                 </a>
