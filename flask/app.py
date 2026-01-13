@@ -196,6 +196,23 @@ def obtener_lista_cluster_csv(email):
 
     return imagenes_csv
 
+def obtener_cantidad_total_cluster_csv(email):
+    # leo todas las imagenes del archivo de clusters y devuelvo el tamaño de la lista
+    # (esto va contra todos los principios de la ingeniería de software)
+    
+    carpeta = "user_output/tagged/clusters"
+    os.makedirs(carpeta, exist_ok=True)
+    nombre_archivo = "clusters_" + email.replace("@","_").replace(".","_") + ".csv" 
+    ruta_archivo = os.path.join(carpeta, nombre_archivo)
+    
+    imagenes_csv = []
+    with open(ruta_archivo, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            imagenes_csv.append(row["image"])
+
+    return len(imagenes_csv)
+
 # OUTPUT CSV
 
 def agregar_etiquetas_output_csv(email, nombre_imagen, etiquetas):
@@ -329,6 +346,7 @@ def etiquetado():
     if "imagenes_aleatorizadas" not in session:
         imagenes = obtener_lista_cluster_csv(email)
         session["imagenes_aleatorizadas"] = imagenes
+        session["cant_total"] = obtener_cantidad_total_cluster_csv(email)
 
     imagenes = session.get("imagenes_aleatorizadas")
     
@@ -336,17 +354,16 @@ def etiquetado():
         return render_template("NoMoreImages.html")
     
     imagen_actual = imagenes[0]
-    restantes = len(imagenes)
+    cant_total = session.get("cant_total")
+    cant_etiquetadas = int(cant_total) - len(imagenes)
     
-    return render_template('Etiquetador_win.html', imagen=imagen_actual, restantes=restantes)
+    return render_template('Etiquetador_win.html', imagen=imagen_actual, cant_total=cant_total, cant_etiquetadas=cant_etiquetadas)
 
 
 @app.route(f'{RUTA_BASE}/login/google')
 def login_google():
     try:
-        redirect_uri = url_for('authorize_google', _external=True
-                               #, _scheme='https'
-                               )
+        redirect_uri = url_for('authorize_google', _external=True, _scheme='https')
         return google.authorize_redirect(redirect_uri)
     except Exception as e:
         app.logger.error(f"Error durante el inicio de sesión:{str(e)}")
@@ -429,7 +446,7 @@ def enviar_etiquetas():
 
 if __name__ == "__main__":
     app.run(
-        #host = "pc44.local",
-        #port = int(PORT),
-        debug = FLASK_DEBUG
+        host = "pc44.local",
+        port = int(PORT)
+        #debug = FLASK_DEBUG
     )
