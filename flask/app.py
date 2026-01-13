@@ -344,7 +344,9 @@ def etiquetado():
 @app.route(f'{RUTA_BASE}/login/google')
 def login_google():
     try:
-        redirect_uri = url_for('authorize_google', _external=True, _scheme='https')
+        redirect_uri = url_for('authorize_google', _external=True
+                               #, _scheme='https'
+                               )
         return google.authorize_redirect(redirect_uri)
     except Exception as e:
         app.logger.error(f"Error durante el inicio de sesión:{str(e)}")
@@ -427,7 +429,7 @@ def enviar_etiquetas():
 
 if __name__ == "__main__":
     app.run(
-        host = "pc44.local",
-        port = int(PORT),
+        #host = "pc44.local",
+        #port = int(PORT),
         debug = FLASK_DEBUG
     )

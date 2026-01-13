@@ -12,14 +12,16 @@
 {%block body%}
 
 <main>
-    <div class="images-container">
-        {%for i in range(0,16)%}
-            <div class="Box" data-etiqueta="-1" data-color-index="0">
-                <button>
-                    <img src="static/images/{{imagen}}_{{i}}.png" alt="{{i+1}}-16" class="SizeBox1">
-                </button>
-            </div>
-        {%endfor%}
+    <div class="images-frame">
+        <div class="images-container">
+            {%for i in range(0,16)%}
+                <div class="Box" data-etiqueta="-1" data-color-index="0">
+                    <button>
+                        <img src="static/images/{{imagen}}_{{i}}.png" alt="{{i+1}}-16" class="SizeBox1" loading="lazy">
+                    </button>
+                </div>
+            {%endfor%}
+        </div>
     </div>
 
     <div class="controls-container">
@@ -38,17 +40,12 @@
             </label>
             <label for="Ciclico">
                 <input type="radio" name="Radio1" value="Ciclico" id="Ciclico">
-                <span>Ciclico</span>
+                <span>Cíclico</span>
             </label>
-        </div> </form>
-        <div class="button-group">
-            <a href="/ia-basurales"><button id="volver" class="BoxEnviar">
-                Volver
-            </button></a>
             <button title="¡Completar los 16 recuadros!" id="submitBtn" class="BoxEnviar">
                 Siguiente
             </button>
-        </div>
+        </div> </form>
         <a>Imágenes restantes: {{restantes}}</a>
     </div>
 </main>
@@ -58,6 +55,13 @@
         <img class="modal-content" id="zoomedImage">
     </div>
 </div>
+
+
+<a href="{{ url_for('logout') }}" class="logout-container" title="Cerrar sesión">
+    <div class="logout-btn">
+        🔒
+    </div>
+</a>
 
 <script src="static/Funcion.js"></script>
 
